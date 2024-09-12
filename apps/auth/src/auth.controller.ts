@@ -15,11 +15,6 @@ export class AuthController {
     private jwtService: JwtService,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.authService.getHello();
-  }
-
   // login with gooele
   @ApiTags('Auth')
   @Get('googleLogin')

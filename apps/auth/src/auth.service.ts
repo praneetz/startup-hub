@@ -16,9 +16,6 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<User>,
     private mailService: MailService,
   ) {}
-  getHello(): string {
-    return 'Hello World! from auth microservice';
-  }
 
   async createUser(createUserDto: CreateUserDto) {
     const hashPassword = await this.hash(createUserDto.password);
