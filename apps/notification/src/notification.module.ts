@@ -3,6 +3,7 @@ import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { CommonModule, MailService } from '@app/common';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CommonModule, MailService } from '@app/common';
         },
       },
     }),
+    ChatModule,
   ],
   controllers: [NotificationController],
   providers: [NotificationService, MailService],
