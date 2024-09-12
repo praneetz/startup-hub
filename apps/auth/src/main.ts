@@ -13,7 +13,7 @@ async function bootstrap() {
     // .addTag('auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('auth/api', app, document);
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.AuthMicroservicePort);

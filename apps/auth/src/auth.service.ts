@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-dto';
 import * as bcrypt from 'bcrypt';
 import { MailService } from '@app/common';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
     private jwtService: JwtService,
     @InjectModel(User.name) private userModel: Model<User>,
     private mailService: MailService,
+    private readonly amqpConnection: AmqpConnection,
   ) {}
 
   async createUser(createUserDto: CreateUserDto) {
@@ -24,14 +26,17 @@ export class AuthService {
     const verificationCode = Math.floor(Math.random() * 100000 + 1);
     createUserDto.verificationCode = `${verificationCode}`;
     const createdUser = await this.userModel.create(createUserDto);
-    // send mail for email verification
-    this.mailService.sendMail({
-      to: createdUser.email,
-      subject: 'Verifying User',
-      message: `Hey ${createdUser.name}, Please verify your account by typing ${verificationCode} code`,
-    });
 
     // emit message to the queue
+    await this.amqpConnection.publish(
+      'verificationMailExchange',
+      'verification',
+      {
+        to: createdUser.email,
+        subject: 'Verifying User',
+        message: `Hey ${createdUser.name}, Please verify your account by typing ${verificationCode} code`,
+      },
+    );
     // this.notificationClient.emit('user_registered', createdUser.email);
     return {
       message: 'User created successfully, Please verify your account!',
