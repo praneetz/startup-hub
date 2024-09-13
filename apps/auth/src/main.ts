@@ -16,6 +16,9 @@ async function bootstrap() {
   SwaggerModule.setup('auth/api', app, document);
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
+  console.log(
+    `\x1b[Auth microservice is running at ${process.env.AuthMicroservicePort} \x1b[0m`,
+  );
   await app.listen(process.env.AuthMicroservicePort);
 }
 bootstrap();
