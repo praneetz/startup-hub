@@ -43,6 +43,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/company/tsconfig.app.json"
       }
+    },
+    "job-seeker": {
+      "type": "application",
+      "root": "apps/job-seeker",
+      "entryFile": "main",
+      "sourceRoot": "apps/job-seeker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/job-seeker/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,
