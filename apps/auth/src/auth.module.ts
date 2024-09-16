@@ -28,6 +28,7 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
       ],
       uri: process.env.RabbitMQ_URL,
       enableControllerDiscovery: true,
+      connectionInitOptions: { wait: false },
       channels: {
         'channel-1': {
           prefetchCount: 15,
