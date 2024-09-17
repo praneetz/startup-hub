@@ -1,0 +1,23 @@
+# notification-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification
+  template:
+    metadata:
+      labels:
+        app: notification
+    spec:
+      containers:
+      - name: notification
+        image: praneet8999/startup-hub-notification # Replace with your Docker image
+        ports:
+        - containerPort: 3003
+        env:
+        - name: RABBITMQ_URI
+          value: "amqp://rabbitmq:5672" # Update RabbitMQ URI

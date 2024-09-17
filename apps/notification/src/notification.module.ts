@@ -21,6 +21,7 @@ import { ChatModule } from './chat/chat.module';
       ],
       uri: process.env.RabbitMQ_URL,
       enableControllerDiscovery: true,
+      connectionInitOptions: { wait: false },
       channels: {
         'channel-1': {
           prefetchCount: 15,

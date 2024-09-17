@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+
+  # RabbitMQ service with management plugin
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # RabbitMQ port
+      - "15672:15672" # RabbitMQ management UI port
+
+  # Auth microservice
+  auth:
+    build:
+      context: .
+      dockerfile: apps/auth/src/dockerfile
+    container_name: auth
+    environment:
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+    ports:
+      - "3001:3001"   # Adjust if needed
+    depends_on:
+      - rabbitmq
+
+  # Company microservice
+  company:
+    build:
+      context: .
+      dockerfile: apps/company/src/dockerfile
+    container_name: company
+    environment:
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+    ports:
+      - "3002:3002"   # Adjust if needed
+    depends_on:
+      - rabbitmq
+  # Notification microservice
+  notification:
+    build:
+      context: .
+      dockerfile: apps/notification/src/dockerfile
+    container_name: notification
+    environment:
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+    ports:
+      - "3003:3003"   # Adjust if needed
+    depends_on:
+      - rabbitmq
+
+
+
