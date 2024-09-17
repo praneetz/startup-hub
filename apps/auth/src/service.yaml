@@ -1,0 +1,12 @@
+# auth-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+spec:
+  type: NodePort
+  ports:
+    - port: 3001
+      targetPort: 3001
+  selector:
+    app: auth

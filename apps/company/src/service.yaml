@@ -1,0 +1,12 @@
+# company-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: company-service
+spec:
+  type: NodePort
+  ports:
+    - port: 3002
+      targetPort: 3002
+  selector:
+    app: company
