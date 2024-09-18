@@ -2,9 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AuthModule } from './auth.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { ResponseInterceptor } from '@app/common/Interceptor/res.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
+  app.useGlobalInterceptors(new ResponseInterceptor());
   const config = new DocumentBuilder()
     .setTitle('Auth example')
     .setDescription('The auth API description')
