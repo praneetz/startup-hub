@@ -2,9 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { CompanyModule } from './company.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { ResponseInterceptor } from '@app/common/Interceptor/res.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(CompanyModule);
+  app.useGlobalInterceptors(new ResponseInterceptor());
   const config = new DocumentBuilder()
     .setTitle('Company example')
     .setDescription('The company API description')
