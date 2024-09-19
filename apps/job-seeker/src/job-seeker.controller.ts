@@ -80,7 +80,6 @@ export class JobSeekerController {
   
   @Get()
   getHello(): string {
-    console.log("inside job seeker")
     return this.jobSeekerService.getHello();
   }
 }

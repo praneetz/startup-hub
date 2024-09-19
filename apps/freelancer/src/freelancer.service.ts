@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateFreelancerDto } from './dto/update-freelancer.dto';
 import { BookServiceDto } from './dto/book-service.dto';
+import axios from 'axios';
 
 @Injectable()
 export class FreelancerService {
@@ -61,6 +62,80 @@ export class FreelancerService {
       ? matches
       : { message: 'No matching results found for this specialty' };
   }
+
+  accessDashboard() {
+    return {
+      message: 'Welcome to your dashboard',
+      stats: {
+        totalProjects: 12,
+        activeClients: 4,
+        revenue: '$5000',
+      },
+    };
+  }
+
+  async accessMarketNews() {
+    const rssUrl = 'https://rss.cnn.com/rss/money_latest.rss';
+
+    try {
+      const response = await axios.get(rssUrl);
+      return {
+        message: 'Market news retrieved successfully',
+        data: response.data,
+      };
+    } catch (error) {
+      return {
+        message: 'Error retrieving market news',
+        error: error.message,
+      };
+    }
+  }
+
+
+  getMatchingRoles() {
+    const roles = [
+      { title: 'Full Stack Developer', company: 'Tech Corp', matchScore: 95 },
+      { title: 'Backend Engineer', company: 'InnoWorks', matchScore: 88 },
+    ];
+    return {
+      message: 'Matching roles retrieved successfully',
+      roles,
+    };
+  }
+
+
+  getAnalytics() {
+    return {
+      message: 'Freelancer analytics retrieved successfully',
+      analytics: {
+        totalProjectsCompleted: 15,
+        averageRating: 4.8,
+        totalEarnings: '$12,000',
+        clientSatisfaction: '98%',
+      },
+    };
+  }
+
+  getAutomatedBookings() {
+    return {
+      message: 'Automated bookings and contracts retrieved successfully',
+      bookings: [
+        {
+          client: 'Company A',
+          project: 'Mobile App Development',
+          status: 'Pending Payment (Escrow)',
+          contractDetails: 'Escrow account created, awaiting client deposit.',
+        },
+        {
+          client: 'Company B',
+          project: 'Website Redesign',
+          status: 'Active',
+          contractDetails: 'Milestone 1 payment completed, in progress.',
+        },
+      ],
+    };
+  }
+
   getHello(): string {
     return 'Hello World!';
   }
