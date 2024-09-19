@@ -52,6 +52,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/job-seeker/tsconfig.app.json"
       }
+    },
+    "freelancer": {
+      "type": "application",
+      "root": "apps/freelancer",
+      "entryFile": "main",
+      "sourceRoot": "apps/freelancer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/freelancer/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,
