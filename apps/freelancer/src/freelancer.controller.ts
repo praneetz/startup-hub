@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/comm
 import { FreelancerService } from './freelancer.service';
 import { UpdateFreelancerDto } from './dto/update-freelancer.dto';
 import { BookServiceDto } from './dto/book-service.dto';
-import { SubscriptionGuard } from '@app/common/Authorization/subscription.guard';
+import { SubscriptionGuard } from '@app/common/Guards/subscription.guard';
 
 @Controller('freelancer')
 export class FreelancerController {
